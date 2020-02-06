@@ -64,7 +64,19 @@ typedef NetLoss * metric;
     model Model(vlayer in, vlayer out);
     void build(model net, optimizer o=nullptr, CompServ *cs=nullptr, bool init_weigths=true);
     /**
-      *  @brief Tell the model which optimizer, losses, metrics and computing services use.
+      *  @brief Tell the model which optimizer, losses, metrics and computing services to use. Losses and metrics are specified by name.
+      *
+      *  @param net  Model
+      *  @param o  Optimizer
+      *  @param lo  Vector with loss names
+      *  @param me  Vector with metric names
+      *  @param cs  Computing service
+      *  @return     (void)
+    */
+    void build(model net, optimizer o, const vector<string> &lo, const vector<string> &me, CompServ *cs=nullptr, bool init_weights=true);
+
+    /**
+      *  @brief Tell the model which optimizer, losses, metrics and computing services to use.
       *
       *  @param net  Model
       *  @param o  Optimizer
@@ -73,7 +85,7 @@ typedef NetLoss * metric;
       *  @param cs  Computing service
       *  @return     (void)
     */
-    void build(model net, optimizer o, const vector<string> &lo, const vector<string> &me, CompServ *cs=nullptr, bool init_weights=true);
+    void build(model net, optimizer o, const vector<Loss*> &lo, const vector<Metric*> &me, CompServ *cs=nullptr, bool init_weights=true);
 
     // Computing services
     /**

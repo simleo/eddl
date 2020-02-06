@@ -60,12 +60,15 @@ namespace eddl {
             m.push_back(getMetric(mi));
         }
 
+	build(net, o, l, m, cs, init_weights);
+    }
+
+    void build(model net, optimizer o, const vector<Loss*> &lo, const vector<Metric*> &me, CompServ *cs, bool init_weights) {
         // Assign default computing service
         if (cs== nullptr){
             cs = new CompServ(std::thread::hardware_concurrency(), {}, {});
         }
-
-        net->build(o, l, m, cs, init_weights);
+        net->build(o, lo, me, cs, init_weights);
     }
 
     // Computing services
